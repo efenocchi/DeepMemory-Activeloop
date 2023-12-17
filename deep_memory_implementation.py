@@ -10,7 +10,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores.deeplake import DeepLakeVectorStore
 from global_variables import TYPE_BIOMEDICAL, TYPE_LEGAL, TYPE_FINANCE
 
-from upload_existing_dataset import upload_with_deepcopy
+# from upload_existing_dataset import upload_with_deepcopy
 
 # from dataset_generator import get_chunk_qa_data
 from dataset_generator_langchain import get_chunk_qa_data_old
