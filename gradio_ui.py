@@ -1,5 +1,7 @@
 # pylint: disable=locally-disabled, multiple-statements, fixme, line-too-long, missing-function-docstring
 import gradio as gr
+from dotenv import load_dotenv
+
 from dataset_generator_langchain import generate_answer
 from deep_memory_implementation import load_vector_store, get_answer
 
@@ -13,6 +15,8 @@ from global_variables import (
     OUTPUT_TEXT_WITHOUT_DEEP_MEMORY,
     DATASET_NAME_CHOSEN,
 )
+
+load_dotenv()
 
 # LINK_WEBSITE = """
 #             Visit <a href="https://www.activeloop.com/activeloop/deep_memory_legal_train_dataset">Activeloop Legal Dataset</a> and run the output query to discover the chunks.\n
