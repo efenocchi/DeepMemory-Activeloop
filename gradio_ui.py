@@ -34,7 +34,7 @@ choices = [
 
 internal_dataset_path = {
     choices[0]: YAML_FILE["db"][DATASETS_NAME[0]]["name"],
-    choices[1]: YAML_FILE["db"][DATASETS_NAME[2]]["name"],
+    choices[1]: YAML_FILE["db"][DATASETS_NAME[1]]["name"],
     choices[2]: YAML_FILE["db"][DATASETS_NAME[2]]["name"],
 }
 
@@ -120,7 +120,7 @@ def process_input(dataset_choice, question, markdown):
         elif DB_NAME == YAML_FILE["db"][DATASETS_NAME[2]]["name"]:
             DATASET_NAME_CHOSEN = DATASETS_NAME[2]
 
-        print(f"Loading the {DB_NAME}...")
+        print(f"\nLoading the {DB_NAME}...")
         yield (
             "Loading the dataset from the Activeloop Org...",
             "Loading the dataset from the Activeloop Org...",

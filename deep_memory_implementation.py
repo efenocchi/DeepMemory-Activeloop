@@ -2,12 +2,12 @@
 import getpass
 import os
 import argparse
-import yaml
+
 
 from deeplake import VectorStore
 from langchain.embeddings import OpenAIEmbeddings
 
-from langchain.vectorstores.deeplake import DeepLakeVectorStore
+from langchain.vectorstores.deeplake import DeepLake
 from global_variables import TYPE_BIOMEDICAL, TYPE_LEGAL, TYPE_FINANCE
 
 # from upload_existing_dataset import upload_with_deepcopy
@@ -39,12 +39,13 @@ embeddings_function = OpenAIEmbeddings()
 
 
 def load_vector_store(user_hub, name_db):
-    vector_store_db = DeepLakeVectorStore(
+    vector_store_db = DeepLake(
         f"hub://{user_hub}/{name_db}",
         embedding_function=embeddings_function.embed_documents,
         runtime={"tensor_db": True},
+        read_only=True,
     )
-    return vector_store_db
+    return vector_store_db.vectorstore
 
 
 def training_job(vector_store_db, chunk_question_quantity: int):
