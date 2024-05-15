@@ -5,15 +5,11 @@ import argparse
 
 
 from deeplake import VectorStore
-from langchain.embeddings import OpenAIEmbeddings
-
+from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.deeplake import DeepLake
 from global_variables import TYPE_BIOMEDICAL, TYPE_LEGAL, TYPE_FINANCE
 
-# from upload_existing_dataset import upload_with_deepcopy
-
-# from dataset_generator import get_chunk_qa_data
-from dataset_generator_langchain import get_chunk_qa_data_old
+from dataset_generator_langchain import get_chunk_question
 
 from global_variables import YAML_FILE, HUB_NAME
 
@@ -35,13 +31,13 @@ else:
     os.environ["ACTIVELOOP_TOKEN"] = os.getenv("ACTIVELOOP_TOKEN")
     os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-embeddings_function = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 
 
 def load_vector_store(user_hub, name_db):
     vector_store_db = DeepLake(
         f"hub://{user_hub}/{name_db}",
-        embedding_function=embeddings_function.embed_documents,
+        embedding_function=embeddings.embed_documents,
         runtime={"tensor_db": True},
         read_only=True,
     )
@@ -49,13 +45,6 @@ def load_vector_store(user_hub, name_db):
 
 
 def training_job(vector_store_db, chunk_question_quantity: int):
-    # chunks, chunk_id = [str(el.text.data()['value']), str(el.id.data()['value']) for idx, el in enumerate(vector_store_db.dataset) if idx < first_chunks]  # first N chunks
-
-    # create real cluster
-    # embeddings = vector_store_db.dataset.embedding.data()["value"]
-    # elbow_technique(embeddings)
-
-    # create cluster
 
     questions = []
     relevances = []
@@ -67,15 +56,14 @@ def training_job(vector_store_db, chunk_question_quantity: int):
         chunk_id = str(el.id.data()["value"])
         text = str(el.text.data()["value"])
         print(f"Processing chunk: {idx}")
-        single_question, single_relevance = get_chunk_qa_data_old(text)
+        single_question = get_chunk_question(text)
         questions.append(single_question)
-        # relevances.append([(chunk_id, float(single_relevance))])
         relevances.append([(chunk_id, 1)])
 
     job_id = vector_store_db.deep_memory.train(
         queries=questions,
         relevance=relevances,
-        embedding_function=embeddings_function.embed_documents,
+        embedding_function=embeddings.embed_documents,
     )
     vector_store_db.deep_memory.status(job_id)
     return vector_store_db
@@ -85,7 +73,7 @@ def get_answer(vector_store_db, user_question, deep_memory):
     # deep memory inside the vectore store ==> deep_memory=True
     answer = vector_store_db.search(
         embedding_data=user_question,
-        embedding_function=embeddings_function.embed_query,
+        embedding_function=embeddings.embed_query,
         deep_memory=deep_memory,
         return_view=False,
     )
@@ -111,14 +99,15 @@ def evaluate_deep_memory(vector_store_db, train_question_quantity, number_of_que
         print(f"Generating question: {idx}")
         chunk_id = str(el.id.data()["value"])
         text = str(el.text.data()["value"])
-        single_question, single_relevance = get_chunk_qa_data_old(text)
+        single_question = get_chunk_question(text)
         test_questions.append(single_question)
 
         test_relevance.append([(chunk_id, 1)])
+
     evaluation = vector_store_db.deep_memory.evaluate(
         queries=test_questions,
         relevance=test_relevance,
-        embedding_function=embeddings_function.embed_documents,
+        embedding_function=embeddings.embed_documents,
         top_k=[1, 3, 5, 10, 50, 100],
     )
     with open(f"question_evaluation_{YAML_FILE['db'][TYPE]['name']}.txt", "w") as file:

@@ -1,8 +1,9 @@
-deeplake @ git+https://github.com/activeloopai/deeplake.git@fdc0b0baeffcd27e6943aa77915024ceefebf65b
+deeplake==3.9.5
 gradio==4.3.0
 gradio_client==0.7.0
 huggingface-hub==0.19.1
 llama-hub==0.0.57
 llama-index==0.9.15
-langchain==0.0.350
+langchain==0.1.20
 python-dotenv==1.0.0
+langchain-openai==0.1.6
