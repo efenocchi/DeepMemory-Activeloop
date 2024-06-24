@@ -16,6 +16,7 @@ source venv/bin/activate
 
 ```python
 pip install -r requirements.txt
+pip uninstall uvloop
 ```
 
 Now that the system has been set up, you can run the Gradio interface and experiment with deep memory technology.
