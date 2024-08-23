@@ -31,7 +31,7 @@ else:
     os.environ["ACTIVELOOP_TOKEN"] = os.getenv("ACTIVELOOP_TOKEN")
     os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
 
 def load_vector_store(user_hub, name_db):
