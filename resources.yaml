@@ -1,7 +1,7 @@
 db:
     legal:
         label: Legal Precedent Dataset
-        name: deep_memory_legal_dataset
+        name: deep_memory_legal_dataset_24
         query_numbers: 500
         job_id: "65579dcfe12183293d156923"
         model_performance_info: "On average, Deep Memory improves retrieval accuracy up to 14% on the Legal Precedent Dataset."
@@ -9,18 +9,18 @@ db:
         
     biomedical:
         label: Biomedical Dataset
-        name: deep_memory_biomedical_dataset
+        name: biomed_deep_memory_project_24
         query_numbers: 500
         job_id: "655cd2f6ae28ad2892247bac"
-        model_performance_info: "On average, Deep Memory improves retrieval accuracy up to 7% on the Biomedical Dataset."
+        model_performance_info: "On average, Deep Memory improves retrieval accuracy up to 16% on the Biomedical Dataset."
         query_link: "\n\nCheck the chunks running the above queries in the <a href='https://app.activeloop.ai/activeloop/deep_memory_biomed_dataset'>Biomedical Dataset</a> and inspect the particular chunk."
     
     finance:
         label: Finance Dataset
-        name: deep_memory_finance_dataset
+        name: deep_memory_finance_dataset_24
         query_numbers: 500
         job_id: "655cd787f16aeff3ceee243d"
-        model_performance_info: "On average, Deep Memory improves retrieval accuracy up to 9% on the Finance Dataset.\n"
+        model_performance_info: "On average, Deep Memory improves retrieval accuracy up to 7% on the Finance Dataset.\n"
         query_link: "\n\nCheck the chunks running the above queries in the <a href='https://app.activeloop.ai/activeloop/deep_memory_finance_dataset'>Finance Dataset</a> Dataset and inspect the particular chunk."
     deep_memory:
         link: "Learn more about <a href='https://www.activeloop.ai/resources/use-deep-memory-to-boost-rag-apps-accuracy-by-up-to-22/'>Deep Memory.</a>"

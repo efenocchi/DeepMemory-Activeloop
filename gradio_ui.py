@@ -91,16 +91,11 @@ def create_model_output(question, deep_memory_available, dataset_choice):
             for single_sources_url, single_scores in zip(query, percentage)
         ]
         if deep_memory_available:
-            # TODO REMOVE PASS AND UNCOMMENT
-            pass
-            # OUTPUT_TEXT_DEEP_MEMORY += "\n" + sources + "\n".join(sources_percentage)
+            OUTPUT_TEXT_DEEP_MEMORY += "\n" + sources + "\n".join(sources_percentage)
         else:
-            # TODO uncomment this
-            # OUTPUT_TEXT_WITHOUT_DEEP_MEMORY += (
-            #     "\n" + sources + "\n".join(sources_percentage)
-            # )
-            # TODO Remove this
-            pass
+            OUTPUT_TEXT_WITHOUT_DEEP_MEMORY += (
+                "\n" + sources + "\n".join(sources_percentage)
+            )
         # output_text += "\n" + sources + "\n".join(sources_percentage)
         db_query_link = str(DB_NAME).split(" : ")[0]
         link_query = YAML_FILE["db"][DATASET_NAME_CHOSEN]["query_link"]
