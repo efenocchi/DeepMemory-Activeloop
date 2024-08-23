@@ -46,6 +46,7 @@ Install the project requirements
 
 ```python
 pip install -r requirements.txt
+pip uninstall uvloop
 ```
 
 Don't forget to set the API tokens as global variables by placing them in the .env file or passing them into the CLI using the `--credentials` argument.
